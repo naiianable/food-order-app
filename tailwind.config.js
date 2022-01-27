@@ -1,7 +1,11 @@
 module.exports = {
-	content: ["./src/compnents/**/*.js", "./pages/**/*.js"],
+	content: ["./src/components/**/*.js", "./pages/**/*.js"],
 	theme: {
-		extend: {},
+		extend: {
+			minHeight: {
+				"70vh": "70vh",
+			},
+		},
 	},
 	plugins: [
 		require("tailwindcss"),
