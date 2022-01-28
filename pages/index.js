@@ -3,6 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import Layout from "../src/components/layout";
 
+const cheeseburgerMenuPic =
+	"https://www.spendwithpennies.com/wp-content/uploads/2020/10/Air-Fryer-Hamburgers-SpendWithPennies-6.jpg";
+const sidesMenuPic =
+	"https://www.spendwithpennies.com/wp-content/uploads/2013/10/Crispy-Oven-Fries-SpendWithPennies-27.jpg";
+
 export default function Home() {
 	return (
 		<div>
@@ -37,9 +42,7 @@ export default function Home() {
 									<div className="bg-gray-100 p-6 rounded-lg">
 										<Image
 											className="h-40 rounded w-full object-cover object-center mb-6"
-											src={
-												"https://dummyimage.com/720x400"
-											}
+											src={cheeseburgerMenuPic}
 											height="400"
 											width="720"
 											alt="content"
@@ -56,72 +59,27 @@ export default function Home() {
 								</a>
 							</Link>
 
-							<div className="xl:w-1/4 md:w-1/2 p-4">
-								<div className="bg-gray-100 p-6 rounded-lg">
-									<Image
-										className="h-40 rounded w-full object-cover object-center mb-6"
-										src={"https://dummyimage.com/721x401"}
-										height="400"
-										width="720"
-										alt="content"
-									/>
-									<h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
-										SUBTITLE
-									</h3>
-									<h2 className="text-lg text-gray-900 font-medium title-font mb-4">
-										Colosseum Roma
-									</h2>
-									<p className="leading-relaxed text-base">
-										Fingerstache flexitarian street art
-										8-bit waistcoat. Distillery hexagon
-										disrupt edison bulbche.
-									</p>
-								</div>
-							</div>
-							<div className="xl:w-1/4 md:w-1/2 p-4">
-								<div className="bg-gray-100 p-6 rounded-lg">
-									<Image
-										className="h-40 rounded w-full object-cover object-center mb-6"
-										src={"https://dummyimage.com/722x402"}
-										height="400"
-										width="720"
-										alt="content"
-									/>
-									<h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
-										SUBTITLE
-									</h3>
-									<h2 className="text-lg text-gray-900 font-medium title-font mb-4">
-										Great Pyramid of Giza
-									</h2>
-									<p className="leading-relaxed text-base">
-										Fingerstache flexitarian street art
-										8-bit waistcoat. Distillery hexagon
-										disrupt edison bulbche.
-									</p>
-								</div>
-							</div>
-							<div className="xl:w-1/4 md:w-1/2 p-4">
-								<div className="bg-gray-100 p-6 rounded-lg">
-									<Image
-										className="h-40 rounded w-full object-cover object-center mb-6"
-										src={"https://dummyimage.com/723x403"}
-										height="400"
-										width="720"
-										alt="content"
-									/>
-									<h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">
-										SUBTITLE
-									</h3>
-									<h2 className="text-lg text-gray-900 font-medium title-font mb-4">
-										San Francisco
-									</h2>
-									<p className="leading-relaxed text-base">
-										Fingerstache flexitarian street art
-										8-bit waistcoat. Distillery hexagon
-										disrupt edison bulbche.
-									</p>
-								</div>
-							</div>
+							<Link href="/sides">
+								<a className="xl:w-1/4 md:w-1/2 p-4">
+									<div className="bg-gray-100 p-6 rounded-lg">
+										<Image
+											className="h-40 rounded w-full object-cover object-center mb-6"
+											src={sidesMenuPic}
+											height="400"
+											width="720"
+											alt="content"
+										/>
+										<h2 className="text-lg text-gray-900 font-medium title-font mb-4">
+											Sides
+										</h2>
+										<p className="leading-relaxed text-base">
+											Fingerstache flexitarian street art
+											8-bit waistcoat. Distillery hexagon
+											disrupt edison bulbche.
+										</p>
+									</div>
+								</a>
+							</Link>
 						</div>
 					</div>
 				</section>
