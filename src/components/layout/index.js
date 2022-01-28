@@ -1,7 +1,8 @@
 import Header from "../header";
 import Footer from "../footer";
 
-export default function Layout({ children }) {
+export default function Layout({ children, burgers }) {
+	// console.log("THIS IS BURGERS", burgers);
 	return (
 		<div>
 			<Header />
