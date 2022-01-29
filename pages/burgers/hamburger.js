@@ -18,9 +18,9 @@ export default function Hamburger() {
 		console.log("THIS IS THE CLICK", selected);
 	}
 
-	function handleChangeMod(e) {
-		console.log("THIS IS HANDLE CHANGE", e.target.value);
-	}
+	// function handleChangeMod(e) {
+	// 	console.log("THIS IS HANDLE CHANGE", e.target.value);
+	// }
 
 	return (
 		<Layout>
@@ -50,18 +50,47 @@ export default function Hamburger() {
 								neutra jean shorts keytar banjo tattooed umami
 								cardigan.
 							</p>
-							<div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
+							{/* flex mt-6 space-x-4 grid grid-cols-3 gap-4 mb-5 */}
+							{/* "" */}
+							<div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 gap-4 mb-5">
 								<div className="flex">
-									<span className="mr-3">Color</span>
+									<span className="mr-3">
+										Add Bacon $2.00
+									</span>
 									<input
 										className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
 										type="radio"
 										checked={selected}
 										onClick={handleSelectMod}
-										onChange={handleChangeMod}
+										// onChange={handleChangeMod}
 									/>
 								</div>
-								<div className="flex ml-6 items-center">
+								<div className="flex">
+									<span className="mr-3">
+										Add Bacon $2.00
+									</span>
+									<input
+										className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
+										type="radio"
+										checked={selected}
+										onClick={handleSelectMod}
+										// onChange={handleChangeMod}
+									/>
+								</div>
+								<div className="flex">
+									<span className="mr-3">
+										Add Bacon $2.00
+									</span>
+									<input
+										className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
+										type="radio"
+										checked={selected}
+										onClick={handleSelectMod}
+										// onChange={handleChangeMod}
+									/>
+								</div>
+
+								{/* <div className="flex ml-6 items-center">
 									<span className="mr-3">Size</span>
 									<div className="relative">
 										<select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
@@ -84,7 +113,7 @@ export default function Hamburger() {
 											</svg>
 										</span>
 									</div>
-								</div>
+								</div> */}
 							</div>
 							<div className="flex">
 								<span className="title-font font-medium text-2xl text-gray-900">
