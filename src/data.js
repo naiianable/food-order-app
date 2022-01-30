@@ -13,6 +13,13 @@ const data = {
 			image: "https://www.spendwithpennies.com/wp-content/uploads/2020/10/Air-Fryer-Hamburgers-SpendWithPennies-6.jpg",
 		},
 	],
+	modifiers: [
+		{
+			id: "bacon",
+			item: "Bacon",
+			price: 2,
+		},
+	],
 	cart: [],
 };
 
