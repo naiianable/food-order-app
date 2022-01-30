@@ -6,21 +6,29 @@ import data from "../../src/data";
 
 export default function Hamburger() {
 	const hamburgerData = data.burgers[0];
+	const addBaconData = data.modifiers[0];
 	console.log("THIS IS DATA", hamburgerData);
 	// const router = useRouter();
 	// console.log("THIS IS ROUTER", router);
 
-	const [selected, setSelected] = useState(false);
+	const [selectBacon, setSelectBacon] = useState(false);
+	const [selectTomato, setSelectTomato] = useState(false);
 
-	function handleSelectMod(e) {
+	function handleSelectBacon(e) {
 		e.preventDefault;
-		setSelected(!selected);
-		console.log("THIS IS THE CLICK", selected);
+		setSelectBacon(!selectBacon);
+		console.log("THIS IS BACON", selectBacon);
 	}
 
-	// function handleChangeMod(e) {
-	// 	console.log("THIS IS HANDLE CHANGE", e.target.value);
+	// function handleSelectTomato(e) {
+	// 	e.preventDefault;
+	// 	setSelectTomato(!selectTomato);
+	// 	console.log("THIS IS TOMATO", selectTomato);
 	// }
+
+	function handleChangeBacon(e) {
+		console.log("THIS IS HANDLE CHANGE", e.target.value);
+	}
 
 	return (
 		<Layout>
@@ -37,7 +45,7 @@ export default function Hamburger() {
 						</div>
 						<div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
 							<h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-								{hamburgerData.item}
+								{hamburgerData.item} - ${hamburgerData.price}
 							</h1>
 
 							<p className="leading-relaxed">
@@ -60,12 +68,25 @@ export default function Hamburger() {
 									<input
 										className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
 										type="radio"
-										checked={selected}
-										onClick={handleSelectMod}
-										// onChange={handleChangeMod}
+										checked={selectBacon}
+										value={addBaconData.price}
+										onClick={handleSelectBacon}
+										onChange={handleChangeBacon}
 									/>
 								</div>
-								<div className="flex">
+								{/* <div className="flex">
+									<span className="mr-3">
+										Extra Tomato $1.00
+									</span>
+									<input
+										className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
+										type="radio"
+										checked={selectTomato}
+										onClick={handleSelectTomato}
+										// onChange={handleChangeMod}
+									/>
+								</div> */}
+								{/* <div className="flex">
 									<span className="mr-3">
 										Add Bacon $2.00
 									</span>
@@ -76,19 +97,7 @@ export default function Hamburger() {
 										onClick={handleSelectMod}
 										// onChange={handleChangeMod}
 									/>
-								</div>
-								<div className="flex">
-									<span className="mr-3">
-										Add Bacon $2.00
-									</span>
-									<input
-										className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
-										type="radio"
-										checked={selected}
-										onClick={handleSelectMod}
-										// onChange={handleChangeMod}
-									/>
-								</div>
+								</div> */}
 
 								{/* <div className="flex ml-6 items-center">
 									<span className="mr-3">Size</span>
@@ -117,7 +126,10 @@ export default function Hamburger() {
 							</div>
 							<div className="flex">
 								<span className="title-font font-medium text-2xl text-gray-900">
-									$58.00
+									{selectBacon
+										? hamburgerData.price +
+										  addBaconData.price
+										: hamburgerData.price}
 								</span>
 								<button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
 									Button
