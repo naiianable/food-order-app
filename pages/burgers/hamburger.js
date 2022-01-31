@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 import Layout from "../../src/components/layout";
@@ -7,26 +7,62 @@ import data from "../../src/data";
 export default function Hamburger() {
 	const hamburgerData = data.burgers[0];
 	const addBaconData = data.modifiers[0];
-	console.log("THIS IS DATA", hamburgerData);
+	const addTomatoData = data.modifiers[1];
+	const addSauceData = data.modifiers[2];
+
+	//console.log("THIS IS DATA", hamburgerData);
 	// const router = useRouter();
 	// console.log("THIS IS ROUTER", router);
 
 	const [selectBacon, setSelectBacon] = useState(false);
 	const [selectTomato, setSelectTomato] = useState(false);
+	const [selectSauce, setSelectSauce] = useState(false);
+	const [hamburgerPrice, setHamburgerPrice] = useState(10);
 
 	function handleSelectBacon(e) {
 		e.preventDefault;
 		setSelectBacon(!selectBacon);
-		console.log("THIS IS BACON", selectBacon);
+		if (!selectBacon) {
+			setHamburgerPrice(+hamburgerPrice + +e.target.value);
+		}
+		if (selectBacon && hamburgerPrice !== 10) {
+			setHamburgerPrice(+hamburgerPrice - +e.target.value);
+		}
 	}
 
-	// function handleSelectTomato(e) {
-	// 	e.preventDefault;
-	// 	setSelectTomato(!selectTomato);
-	// 	console.log("THIS IS TOMATO", selectTomato);
-	// }
+	function handleExtraTomato(e) {
+		e.preventDefault;
+		setSelectTomato(!selectTomato);
+		if (!selectTomato) {
+			setHamburgerPrice(+hamburgerPrice + +e.target.value);
+		}
+		if (selectTomato && hamburgerPrice !== 10) {
+			setHamburgerPrice(+hamburgerPrice - +e.target.value);
+		}
+	}
+
+	function handleExtraSauce(e) {
+		e.preventDefault;
+		setSelectSauce(!selectSauce);
+		if (!selectSauce) {
+			setHamburgerPrice(+hamburgerPrice + +e.target.value);
+		}
+		if (selectSauce && hamburgerPrice !== 10) {
+			setHamburgerPrice(+hamburgerPrice - +e.target.value);
+		}
+	}
+
+	// useEffect(() => {
+	// 	console.log(hamburgerPrice);
+	// }, [hamburgerPrice]);
 
 	function handleChangeBacon(e) {
+		console.log("THIS IS HAMBURGER PRICE", hamburgerPrice);
+		console.log("THIS IS HANDLE CHANGE", e.target.value);
+	}
+
+	function handleChangeTomato(e) {
+		console.log("THIS IS HAMBURGER PRICE", hamburgerPrice);
 		console.log("THIS IS HANDLE CHANGE", e.target.value);
 	}
 
@@ -74,7 +110,7 @@ export default function Hamburger() {
 										onChange={handleChangeBacon}
 									/>
 								</div>
-								{/* <div className="flex">
+								<div className="flex">
 									<span className="mr-3">
 										Extra Tomato $1.00
 									</span>
@@ -82,22 +118,24 @@ export default function Hamburger() {
 										className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
 										type="radio"
 										checked={selectTomato}
-										onClick={handleSelectTomato}
-										// onChange={handleChangeMod}
+										value={addTomatoData.price}
+										onClick={handleExtraTomato}
+										onChange={handleChangeTomato}
 									/>
-								</div> */}
-								{/* <div className="flex">
+								</div>
+								<div className="flex">
 									<span className="mr-3">
-										Add Bacon $2.00
+										Extra Sauce $1.00
 									</span>
 									<input
 										className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
 										type="radio"
-										checked={selected}
-										onClick={handleSelectMod}
+										checked={selectSauce}
+										value={addSauceData.price}
+										onClick={handleExtraSauce}
 										// onChange={handleChangeMod}
 									/>
-								</div> */}
+								</div>
 
 								{/* <div className="flex ml-6 items-center">
 									<span className="mr-3">Size</span>
@@ -125,11 +163,11 @@ export default function Hamburger() {
 								</div> */}
 							</div>
 							<div className="flex">
-								<span className="title-font font-medium text-2xl text-gray-900">
-									{selectBacon
-										? hamburgerData.price +
-										  addBaconData.price
-										: hamburgerData.price}
+								<span
+									className="title-font font-medium text-2xl text-gray-900"
+									value={hamburgerPrice}
+								>
+									${hamburgerPrice}
 								</span>
 								<button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
 									Button

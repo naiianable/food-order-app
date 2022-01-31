@@ -19,6 +19,16 @@ const data = {
 			item: "Bacon",
 			price: 2,
 		},
+		{
+			id: "tomato",
+			item: "Tomato",
+			price: 1,
+		},
+		{
+			id: "sauce",
+			item: "Sauce",
+			price: 1,
+		},
 	],
 	cart: [],
 };
