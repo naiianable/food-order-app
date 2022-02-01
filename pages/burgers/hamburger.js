@@ -9,8 +9,16 @@ export default function Hamburger() {
 	const addBaconData = data.modifiers[0];
 	const addTomatoData = data.modifiers[1];
 	const addSauceData = data.modifiers[2];
+	const cartData = data.cart;
 
-	//console.log("THIS IS DATA", hamburgerData);
+	// const tempVar = {
+	//   id: 'hamburger',
+	//   item: 'Hamburger',
+	//   price: 10,
+
+	// }
+
+	console.log("THIS IS DATA", hamburgerData);
 	// const router = useRouter();
 	// console.log("THIS IS ROUTER", router);
 
@@ -52,17 +60,30 @@ export default function Hamburger() {
 		}
 	}
 
+	function handleAddToCart() {
+		//add hamburger hamburgerPrice to data cart array
+		//spread in rest of hamburger object
+		// cartData.push({ hamburgerPrice, ...hamburgerData });
+		// let { ...price } = JSON.parse(localStorage.getItem("cart"));
+		hamburgerData.price = hamburgerPrice;
+		localStorage.setItem("cart", JSON.stringify(hamburgerData));
+
+		console.log("THIS IS HAMBURGER PRICE", hamburgerPrice);
+		// console.log("THIS IS THE UPDATED PRICE", price);
+		console.log("THIS IS UPDATED HAMBURGER DATA", hamburgerData);
+	}
+
 	// useEffect(() => {
 	// 	console.log(hamburgerPrice);
 	// }, [hamburgerPrice]);
 
 	function handleChangeBacon(e) {
-		console.log("THIS IS HAMBURGER PRICE", hamburgerPrice);
+		console.log("THIS IS HAMBURGER hamburgerPrice", hamburgerPrice);
 		console.log("THIS IS HANDLE CHANGE", e.target.value);
 	}
 
 	function handleChangeTomato(e) {
-		console.log("THIS IS HAMBURGER PRICE", hamburgerPrice);
+		console.log("THIS IS HAMBURGER hamburgerPrice", hamburgerPrice);
 		console.log("THIS IS HANDLE CHANGE", e.target.value);
 	}
 
@@ -81,7 +102,8 @@ export default function Hamburger() {
 						</div>
 						<div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
 							<h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-								{hamburgerData.item} - ${hamburgerData.price}
+								{hamburgerData.item} - $
+								{hamburgerData.hamburgerPrice}
 							</h1>
 
 							<p className="leading-relaxed">
@@ -169,9 +191,14 @@ export default function Hamburger() {
 								>
 									${hamburgerPrice}
 								</span>
-								<button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-									Button
+
+								<button
+									className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+									onClick={handleAddToCart}
+								>
+									Add To Cart
 								</button>
+
 								<button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
 									<svg
 										fill="currentColor"
