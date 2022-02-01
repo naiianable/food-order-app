@@ -13,6 +13,10 @@ module.exports = {
 		includePaths: [path.join(__dirname, "styles")],
 	},
 	images: {
-		domains: ["dummyimage.com", "www.spendwithpennies.com"],
+		domains: [
+			"dummyimage.com",
+			"www.spendwithpennies.com",
+			"drive.google.com",
+		],
 	},
 };
