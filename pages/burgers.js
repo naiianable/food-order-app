@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import Layout from "../src/components/layout";
-import Sandwich from "../src/components/sandwich";
 
 import data from "../src/data";
 
@@ -10,9 +9,10 @@ import data from "../src/data";
 // const cheeseburgerMenuPic =
 // 	"https://www.spendwithpennies.com/wp-content/uploads/2020/10/Air-Fryer-Hamburgers-SpendWithPennies-6.jpg";
 
-export default function Burgers() {
+export default function Burgers({ cart }) {
 	const { burgers } = data;
 	console.log("THIS IS BURGERS", burgers);
+	console.log("THIS IS CART IN BURGERS PAGE", cart);
 	return (
 		<div>
 			<Layout>
