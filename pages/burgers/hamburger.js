@@ -21,38 +21,63 @@ export default function Hamburger() {
 	// console.log("THIS IS ROUTER", router);
 
 	const [cart, setCart] = useState([]);
-	const [selectBacon, setSelectBacon] = useState(0);
+	const [selectBacon, setSelectBacon] = useState(false);
 	const [selectTomato, setSelectTomato] = useState(false);
 	const [selectSauce, setSelectSauce] = useState(false);
 	const [hamburgerPrice, setHamburgerPrice] = useState(10);
-	const [hamburgerInfo, setHamburgerInfo] = useState(hamburgerData);
+	const [hamburgerInfo, setHamburgerInfo] = useState({});
+
+	let tempPrice = hamburgerPrice;
 
 	//update entire hamburger object and set that to state, use spread operator
+
 	function handleSelectBacon(e) {
 		e.preventDefault;
 		setSelectBacon(!selectBacon);
-		if (!selectBacon && hamburgerPrice !== 10) {
+
+		//NOT SURE WHY THIS WORKS BUT IT DOES
+		if (selectBacon) {
+			//setHamburgerPrice(hamburgerInfo.price + 2);
 			setHamburgerInfo({
 				...hamburgerData,
-				price: +hamburgerPrice - 2,
+				price: hamburgerPrice + 2,
+			});
+			console.log("THIS IS BACON", hamburgerPrice);
+		}
+		if (!selectBacon && hamburgerInfo.price !== 10) {
+			//setHamburgerPrice(hamburgerInfo.price - 2);
+			setHamburgerInfo({
+				...hamburgerData,
+				price: hamburgerPrice - 2,
+			});
+			console.log("THIS IS NO BACON", hamburgerPrice);
+		}
+	}
+	console.log("THIS HAMBURGER PRICE", hamburgerInfo);
+	//console.log(selectBacon);
+	//console.log("THIS IS HAMBURGER INFO BACON ADD", hamburgerInfo);
+
+	//NOT WORKING
+	function handleExtraTomato(e) {
+		e.preventDefault;
+		setSelectTomato(!selectTomato);
+
+		if (selectTomato) {
+			setHamburgerPrice(hamburgerInfo.price + 1);
+			setHamburgerInfo({
+				...hamburgerData,
+				price: hamburgerPrice,
 			});
 		}
-		// hamburgerData.price = hamburgerPrice;
+		if (!selectTomato && hamburgerInfo.price !== 10) {
+			setHamburgerPrice(hamburgerInfo.price - 1);
+			setHamburgerInfo({
+				...hamburgerData,
+				price: hamburgerPrice,
+			});
+		}
+		//console.log("THIS IS THE EVENT", e);
 	}
-	console.log(selectBacon);
-	//console.log("THIS IS HAMBURGERINFO BACON ADD", hamburgerInfo);
-
-	// function handleExtraTomato(e) {
-	// 	e.preventDefault;
-	// 	setSelectTomato(!selectTomato);
-	// 	if (!selectTomato) {
-	// 		setHamburgerPrice(+hamburgerPrice + +e.target.value);
-	// 	}
-	// 	if (selectTomato && hamburgerPrice !== 10) {
-	// 		setHamburgerPrice(+hamburgerPrice - +e.target.value);
-	// 	}
-	// 	hamburgerData.price = hamburgerPrice;
-	// }
 
 	// function handleExtraSauce(e) {
 	// 	e.preventDefault;
@@ -70,38 +95,18 @@ export default function Hamburger() {
 		//add hamburger hamburgerPrice to data cart array
 		//spread in rest of hamburger object
 		hamburgerData.price = hamburgerPrice;
-		setHamburgerInfo({ hamburgerData });
+		setHamburgerInfo(hamburgerData);
 		setCart([...cart, hamburgerInfo]);
+		console.log("THIS IS THE CART", cart);
 	}
 
-	useEffect(() => {
-		if (selectBacon) {
-			setHamburgerInfo({
-				...hamburgerData,
-				price: +hamburgerPrice + 2,
-			});
-		}
-		if (!selectBacon && hamburgerPrice !== 10) {
-			setHamburgerInfo({
-				...hamburgerData,
-				price: +hamburgerPrice - 2,
-			});
-		}
-		console.log("THIS IS BURGER INFO", hamburgerInfo);
-	}, [selectBacon]);
+	// useEffect(() => {
+	// 	setHamburgerPrice(+hamburgerPrice - 2);
+	// }, [selectBacon]);
 
-	// function handleChangeBacon(e) {
-	// 	setHamburgerInfo({
-	// 		...hamburgerData,
-	// 		price: +hamburgerPrice + 2,
-	// 	});
-	// }
-	// console.log("THIS IS SECOND HAMBURGERINFO", hamburgerInfo);
+	function handleChangeBacon(e) {}
 
-	// function handleChangeTomato(e) {
-	// 	console.log("THIS IS HAMBURGER hamburgerPrice", hamburgerPrice);
-	// 	console.log("THIS IS HANDLE CHANGE", e.target.value);
-	// }
+	function handleChangeTomato(e) {}
 
 	// function handleChangeSauce(e) {
 	// 	console.log("THIS IS HAMBURGER hamburgerPrice", hamburgerPrice);
@@ -147,12 +152,12 @@ export default function Hamburger() {
 										className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
 										type="radio"
 										checked={selectBacon}
-										value="Add Bacon"
+										value="2"
 										onClick={handleSelectBacon}
-										// onChange={handleChangeBacon}
+										onChange={handleChangeBacon}
 									/>
 								</div>
-								{/* <div className="flex">
+								<div className="flex">
 									<span className="mr-3">
 										Extra Tomato $1.00
 									</span>
@@ -165,7 +170,7 @@ export default function Hamburger() {
 										onChange={handleChangeTomato}
 									/>
 								</div>
-								<div className="flex">
+								{/* <div className="flex">
 									<span className="mr-3">
 										Extra Sauce $1.00
 									</span>
@@ -184,7 +189,7 @@ export default function Hamburger() {
 									className="title-font font-medium text-2xl text-gray-900"
 									// value={hamburgerPrice}
 								>
-									${hamburgerData.price}
+									${hamburgerPrice}
 								</span>
 
 								<button
