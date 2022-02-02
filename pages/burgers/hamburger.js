@@ -5,87 +5,108 @@ import Layout from "../../src/components/layout";
 import data from "../../src/data";
 
 export default function Hamburger() {
-	const hamburgerData = data.burgers[0];
+	const hamburgerData = {
+		id: "hamburger",
+		item: "Hamburger",
+		price: 10,
+		image: "https://www.spendwithpennies.com/wp-content/uploads/2019/05/Classic-Burger-SpendWithPennies_-2.jpg",
+	};
 	const addBaconData = data.modifiers[0];
 	const addTomatoData = data.modifiers[1];
 	const addSauceData = data.modifiers[2];
 	const cartData = data.cart;
 
-	// const tempVar = {
-	//   id: 'hamburger',
-	//   item: 'Hamburger',
-	//   price: 10,
-
-	// }
-
-	console.log("THIS IS DATA", hamburgerData);
+	// console.log("THIS IS DATA", hamburgerData);
 	// const router = useRouter();
 	// console.log("THIS IS ROUTER", router);
 
-	const [selectBacon, setSelectBacon] = useState(false);
+	const [cart, setCart] = useState([]);
+	const [selectBacon, setSelectBacon] = useState(0);
 	const [selectTomato, setSelectTomato] = useState(false);
 	const [selectSauce, setSelectSauce] = useState(false);
 	const [hamburgerPrice, setHamburgerPrice] = useState(10);
+	const [hamburgerInfo, setHamburgerInfo] = useState(hamburgerData);
 
+	//update entire hamburger object and set that to state, use spread operator
 	function handleSelectBacon(e) {
 		e.preventDefault;
 		setSelectBacon(!selectBacon);
-		if (!selectBacon) {
-			setHamburgerPrice(+hamburgerPrice + +e.target.value);
+		if (!selectBacon && hamburgerPrice !== 10) {
+			setHamburgerInfo({
+				...hamburgerData,
+				price: +hamburgerPrice - 2,
+			});
 		}
-		if (selectBacon && hamburgerPrice !== 10) {
-			setHamburgerPrice(+hamburgerPrice - +e.target.value);
-		}
+		// hamburgerData.price = hamburgerPrice;
 	}
+	console.log(selectBacon);
+	//console.log("THIS IS HAMBURGERINFO BACON ADD", hamburgerInfo);
 
-	function handleExtraTomato(e) {
-		e.preventDefault;
-		setSelectTomato(!selectTomato);
-		if (!selectTomato) {
-			setHamburgerPrice(+hamburgerPrice + +e.target.value);
-		}
-		if (selectTomato && hamburgerPrice !== 10) {
-			setHamburgerPrice(+hamburgerPrice - +e.target.value);
-		}
-	}
+	// function handleExtraTomato(e) {
+	// 	e.preventDefault;
+	// 	setSelectTomato(!selectTomato);
+	// 	if (!selectTomato) {
+	// 		setHamburgerPrice(+hamburgerPrice + +e.target.value);
+	// 	}
+	// 	if (selectTomato && hamburgerPrice !== 10) {
+	// 		setHamburgerPrice(+hamburgerPrice - +e.target.value);
+	// 	}
+	// 	hamburgerData.price = hamburgerPrice;
+	// }
 
-	function handleExtraSauce(e) {
-		e.preventDefault;
-		setSelectSauce(!selectSauce);
-		if (!selectSauce) {
-			setHamburgerPrice(+hamburgerPrice + +e.target.value);
-		}
-		if (selectSauce && hamburgerPrice !== 10) {
-			setHamburgerPrice(+hamburgerPrice - +e.target.value);
-		}
-	}
+	// function handleExtraSauce(e) {
+	// 	e.preventDefault;
+	// 	setSelectSauce(!selectSauce);
+	// 	if (!selectSauce) {
+	// 		setHamburgerPrice(+hamburgerPrice + +e.target.value);
+	// 	}
+	// 	if (selectSauce && hamburgerPrice !== 10) {
+	// 		setHamburgerPrice(+hamburgerPrice - +e.target.value);
+	// 	}
+	// 	hamburgerData.price = hamburgerPrice;
+	// }
 
 	function handleAddToCart() {
 		//add hamburger hamburgerPrice to data cart array
 		//spread in rest of hamburger object
-		// cartData.push({ hamburgerPrice, ...hamburgerData });
-		// let { ...price } = JSON.parse(localStorage.getItem("cart"));
 		hamburgerData.price = hamburgerPrice;
-		localStorage.setItem("cart", JSON.stringify(hamburgerData));
-
-		console.log("THIS IS HAMBURGER PRICE", hamburgerPrice);
-		// console.log("THIS IS THE UPDATED PRICE", price);
-		console.log("THIS IS UPDATED HAMBURGER DATA", hamburgerData);
+		setHamburgerInfo({ hamburgerData });
+		setCart([...cart, hamburgerInfo]);
 	}
 
-	// useEffect(() => {
-	// 	console.log(hamburgerPrice);
-	// }, [hamburgerPrice]);
+	useEffect(() => {
+		if (selectBacon) {
+			setHamburgerInfo({
+				...hamburgerData,
+				price: +hamburgerPrice + 2,
+			});
+		}
+		if (!selectBacon && hamburgerPrice !== 10) {
+			setHamburgerInfo({
+				...hamburgerData,
+				price: +hamburgerPrice - 2,
+			});
+		}
+		console.log("THIS IS BURGER INFO", hamburgerInfo);
+	}, [selectBacon]);
 
-	function handleChangeBacon(e) {
-		console.log("THIS IS HAMBURGER hamburgerPrice", hamburgerPrice);
-		console.log("THIS IS HANDLE CHANGE", e.target.value);
-	}
+	// function handleChangeBacon(e) {
+	// 	setHamburgerInfo({
+	// 		...hamburgerData,
+	// 		price: +hamburgerPrice + 2,
+	// 	});
+	// }
+	// console.log("THIS IS SECOND HAMBURGERINFO", hamburgerInfo);
 
-	function handleChangeTomato(e) {
-		console.log("THIS IS HAMBURGER hamburgerPrice", hamburgerPrice);
-		console.log("THIS IS HANDLE CHANGE", e.target.value);
-	}
+	// function handleChangeTomato(e) {
+	// 	console.log("THIS IS HAMBURGER hamburgerPrice", hamburgerPrice);
+	// 	console.log("THIS IS HANDLE CHANGE", e.target.value);
+	// }
+
+	// function handleChangeSauce(e) {
+	// 	console.log("THIS IS HAMBURGER hamburgerPrice", hamburgerPrice);
+	// 	console.log("THIS IS HANDLE CHANGE", e.target.value);
+	// }
 
 	return (
 		<Layout>
@@ -102,8 +123,7 @@ export default function Hamburger() {
 						</div>
 						<div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
 							<h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-								{hamburgerData.item} - $
-								{hamburgerData.hamburgerPrice}
+								{hamburgerData.item} - ${hamburgerData.price}
 							</h1>
 
 							<p className="leading-relaxed">
@@ -127,12 +147,12 @@ export default function Hamburger() {
 										className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
 										type="radio"
 										checked={selectBacon}
-										value={addBaconData.price}
+										value="Add Bacon"
 										onClick={handleSelectBacon}
-										onChange={handleChangeBacon}
+										// onChange={handleChangeBacon}
 									/>
 								</div>
-								<div className="flex">
+								{/* <div className="flex">
 									<span className="mr-3">
 										Extra Tomato $1.00
 									</span>
@@ -155,41 +175,16 @@ export default function Hamburger() {
 										checked={selectSauce}
 										value={addSauceData.price}
 										onClick={handleExtraSauce}
-										// onChange={handleChangeMod}
+										onChange={handleChangeSauce}
 									/>
-								</div>
-
-								{/* <div className="flex ml-6 items-center">
-									<span className="mr-3">Size</span>
-									<div className="relative">
-										<select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
-											<option>SM</option>
-											<option>M</option>
-											<option>L</option>
-											<option>XL</option>
-										</select>
-										<span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-											<svg
-												fill="none"
-												stroke="currentColor"
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth="2"
-												className="w-4 h-4"
-												viewBox="0 0 24 24"
-											>
-												<path d="M6 9l6 6 6-6"></path>
-											</svg>
-										</span>
-									</div>
 								</div> */}
 							</div>
 							<div className="flex">
 								<span
 									className="title-font font-medium text-2xl text-gray-900"
-									value={hamburgerPrice}
+									// value={hamburgerPrice}
 								>
-									${hamburgerPrice}
+									${hamburgerData.price}
 								</span>
 
 								<button
