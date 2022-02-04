@@ -15,14 +15,7 @@ export default function UserCart() {
 		}
 	});
 
-	// _.forOwn(cartFromLocalStorage, (item) => {
-	// 	console.log(item);
-	// });
-
-	// let itemsInCart;
-	// useEffect(() => {
-	// 	itemsInCart = localStorage.getItem("userCart");
-	// });
+	console.log(cartFromLocalStorage);
 
 	return (
 		<div className="bg-gray-100">
@@ -132,18 +125,17 @@ export default function UserCart() {
 						</h1>
 						<div className="flex justify-between mt-10 mb-5">
 							<span className="font-semibold text-sm uppercase">
-								Items 3
+								Items {_.size(cartFromLocalStorage)}
 							</span>
-							<span className="font-semibold text-sm">590$</span>
+							<span className="font-semibold text-sm">
+								$
+								{_.sumBy(cartFromLocalStorage, (o) => {
+									return o.price;
+								})}
+								.00
+							</span>
 						</div>
-						<div>
-							<label className="font-medium inline-block mb-3 text-sm uppercase">
-								Shipping
-							</label>
-							<select className="block p-2 text-gray-600 w-full text-sm">
-								<option>Standard shipping - $10.00</option>
-							</select>
-						</div>
+
 						<div className="py-10">
 							<label
 								htmlFor="promo"
@@ -164,8 +156,15 @@ export default function UserCart() {
 						<div className="border-t mt-8">
 							<div className="flex font-semibold justify-between py-6 text-sm uppercase">
 								<span>Total cost</span>
-								<span>$600</span>
+								<span>
+									$
+									{_.sumBy(cartFromLocalStorage, (o) => {
+										return o.price;
+									})}
+									.00
+								</span>
 							</div>
+
 							<button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
 								Checkout
 							</button>
