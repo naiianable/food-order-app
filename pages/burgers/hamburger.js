@@ -44,13 +44,13 @@ export default function Hamburger() {
 		return total;
 	};
 
-	const getMod = () => {
-		let modName;
-		_.forEach(addOns, (mod) => {
-			if (mod.checked) modName = mod.item;
-		});
-		return modName;
-	};
+	// const getMod = () => {
+	// 	let modName;
+	// 	_.forEach(addOns, (mod) => {
+	// 		if (mod.checked) modName = mod.item;
+	// 	});
+	// 	return modName;
+	// };
 
 	//updating hamburgerData state price when addOns state is changed
 	useEffect(() => {
@@ -75,7 +75,7 @@ export default function Hamburger() {
 			// };
 		});
 	}, [addOns]);
-	console.log("THIS IS USE EFFECT", hamburgerData);
+	//console.log("THIS IS USE EFFECT", hamburgerData);
 
 	function handleAddToCart() {
 		//add hamburger hamburgerPrice to data cart array
@@ -122,48 +122,54 @@ export default function Hamburger() {
 								neutra jean shorts keytar banjo tattooed umami
 								cardigan.
 							</p>
-							{/* flex mt-6 space-x-4 grid grid-cols-3 gap-4 mb-5 */}
-							{/* "" */}
 							<div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 gap-4 mb-5">
-								<div className="flex">
-									<span className="mr-3">
-										Add Bacon $2.00
-									</span>
-									<input
-										className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
-										type="radio"
-										checked={addOns.bacon.checked}
-										value="2"
-										onClick={() => updateAddOns("bacon")}
-										onChange={(e) => {}}
-									/>
+								{_.map(addOns, (mod) => {
+									//console.log("THIS IS MOD", mod);
+									return (
+										<div className="flex">
+											<span className="mr-3">
+												Add {mod.item} $
+												{mod.price.toFixed(2)}
+											</span>
+											<input
+												className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
+												type="radio"
+												checked={mod.checked}
+												value="2"
+												onClick={() =>
+													updateAddOns(mod.id)
+												}
+												onChange={(e) => {}}
+											/>
+										</div>
+									);
+								})}
+								{/* <div className="flex">
+								<span className="mr-3">
+								Extra Tomato $1.00
+								</span>
+								<input
+								className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
+								type="radio"
+								checked={addOns.tomato.checked}
+								value="1"
+								onClick={() => updateAddOns("tomato")}
+								onChange={(e) => {}}
+								/>
 								</div>
 								<div className="flex">
-									<span className="mr-3">
-										Extra Tomato $1.00
-									</span>
-									<input
-										className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
-										type="radio"
-										checked={addOns.tomato.checked}
-										value="1"
-										onClick={() => updateAddOns("tomato")}
-										onChange={(e) => {}}
-									/>
-								</div>
-								<div className="flex">
-									<span className="mr-3">
-										Extra Sauce $1.00
-									</span>
-									<input
-										className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
-										type="radio"
-										checked={addOns.sauce.checked}
-										value="1"
-										onClick={() => updateAddOns("sauce")}
-										onChange={(e) => {}}
-									/>
-								</div>
+								<span className="mr-3">
+								Extra Sauce $1.00
+								</span>
+								<input
+								className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
+								type="radio"
+								checked={addOns.sauce.checked}
+								value="1"
+								onClick={() => updateAddOns("sauce")}
+								onChange={(e) => {}}
+								/>
+							</div> */}
 							</div>
 							<div className="flex">
 								<span
