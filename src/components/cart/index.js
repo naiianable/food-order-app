@@ -5,13 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function UserCart() {
-	// componentDidMount() {
-	// 	const [cartFromLocalStorage, setCartFromLocalStorage] = useState(
-	// 		JSON.parse(localStorage.getItem("userCart"))
-	// 	);
-
-	// }
-
 	//setting localstorage data to state
 	//had to do conditional or else it wouldnt recognize localstorage
 	const [cartFromLocalStorage, setCartFromLocalStorage] = useState(() => {
@@ -21,8 +14,6 @@ export default function UserCart() {
 			return cart;
 		}
 	});
-
-	console.log("THIS IS LOCAL STORAGE", cartFromLocalStorage);
 
 	// _.forOwn(cartFromLocalStorage, (item) => {
 	// 	console.log(item);
@@ -42,8 +33,9 @@ export default function UserCart() {
 							<h1 className="font-semibold text-2xl">
 								Shopping Cart
 							</h1>
+
 							<h2 className="font-semibold text-2xl">
-								{cartFromLocalStorage.length} Items
+								{_.size(cartFromLocalStorage)} Items
 							</h2>
 						</div>
 						<div className="flex mt-10 mb-5">

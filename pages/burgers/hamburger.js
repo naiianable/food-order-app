@@ -6,6 +6,8 @@ import Link from "next/link";
 import Layout from "../../src/components/layout";
 import data from "../../src/data";
 
+//const userCart = JSON.parse(localStorage.getItem("userCart"));
+
 export default function Hamburger() {
 	const [cart, setCart] = useState([]);
 	const [hamburgerData, setHamburgerData] = useState(data.burgers[0]);
@@ -84,7 +86,12 @@ export default function Hamburger() {
 	//console.log("THIS IS ADD ONS", addOns);
 
 	useEffect(() => {
-		localStorage.setItem("userCart", JSON.stringify(cart));
+		//so localstorage persists on hamburger page refresh
+		if (cart.length !== 0) {
+			localStorage.setItem("userCart", JSON.stringify(cart));
+		} else {
+			return;
+		}
 	}, [cart]);
 
 	return (
