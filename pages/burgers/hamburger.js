@@ -1,18 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import _, { add } from "lodash";
 import Image from "next/image";
+import Link from "next/link";
 
 import Layout from "../../src/components/layout";
 import data from "../../src/data";
 
 export default function Hamburger() {
-	const hamburgerData = {
-		id: "hamburger",
-		item: "Hamburger",
-		price: 10,
-		image: "https://www.spendwithpennies.com/wp-content/uploads/2019/05/Classic-Burger-SpendWithPennies_-2.jpg",
-	};
-
+	const [cart, setCart] = useState([]);
+	const [hamburgerData, setHamburgerData] = useState(data.burgers[0]);
 	const [hamburgerPrice, setHamburgerPrice] = useState(10);
 
 	let modifiers = _.keyBy(data.modifiers, "id");
@@ -24,7 +20,7 @@ export default function Hamburger() {
 
 	function updateAddOns(id) {
 		setAddOns((prevState) => {
-			console.log("THIS IS PREVSTATE", prevState[id]);
+			//console.log("THIS IS PREVSTATE", prevState[id]);
 			return {
 				...prevState,
 				[id]: {
@@ -38,25 +34,33 @@ export default function Hamburger() {
 
 	const getTotalPrice = () => {
 		let total = hamburgerPrice;
-
 		_.forEach(addOns, (mod) => {
 			if (mod.checked) total += mod.price;
 		});
 
+		// console.log(total);
 		return total;
 	};
+
+	useEffect(() => {
+		setHamburgerData({ ...hamburgerData, price: getTotalPrice() });
+	}, [addOns]);
+	//console.log("THIS IS USE EFFECT", hamburgerData);
 
 	function handleAddToCart() {
 		//add hamburger hamburgerPrice to data cart array
 		//spread in rest of hamburger object
-		hamburgerData.price = hamburgerPrice;
-		setHamburgerInfo(hamburgerData);
-		setCart([...cart, hamburgerInfo]);
-		console.log("THIS IS THE CART", cart);
+		setCart([...cart, hamburgerData]);
 	}
+	//console.log("THIS IS THE BURGER", hamburgerData);
+	console.log("THIS IS THE CART", cart);
+
+	useEffect(() => {
+		localStorage.setItem("userCart", JSON.stringify(cart));
+	}, [cart]);
 
 	return (
-		<Layout>
+		<Layout cart={cart}>
 			<section className="text-gray-600 body-font overflow-hidden">
 				<div className="container px-5 py-24 mx-auto">
 					<div className="lg:w-4/5 mx-auto flex flex-wrap">
@@ -70,7 +74,7 @@ export default function Hamburger() {
 						</div>
 						<div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
 							<h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-								{hamburgerData.item} - ${hamburgerData.price}
+								{hamburgerData.item} - ${getTotalPrice()}
 							</h1>
 
 							<p className="leading-relaxed">
@@ -96,7 +100,7 @@ export default function Hamburger() {
 										checked={addOns.bacon.checked}
 										value="2"
 										onClick={() => updateAddOns("bacon")}
-										// onChange={handleChangeBacon}
+										onChange={(e) => {}}
 									/>
 								</div>
 								<div className="flex">
@@ -109,7 +113,7 @@ export default function Hamburger() {
 										checked={addOns.tomato.checked}
 										value="1"
 										onClick={() => updateAddOns("tomato")}
-										// onChange={handleChangeTomato}
+										onChange={(e) => {}}
 									/>
 								</div>
 								<div className="flex">
@@ -122,7 +126,7 @@ export default function Hamburger() {
 										checked={addOns.sauce.checked}
 										value="1"
 										onClick={() => updateAddOns("sauce")}
-										//onChange={handleChangeSauce}
+										onChange={(e) => {}}
 									/>
 								</div>
 							</div>
@@ -131,16 +135,18 @@ export default function Hamburger() {
 									className="title-font font-medium text-2xl text-gray-900"
 									// value={hamburgerPrice}
 								>
-									${getTotalPrice()}
+									{/* ${getTotalPrice()} */}
 								</span>
 
+								{/* <Link href="/cart" passHref> */}
 								<button
 									className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
 									onClick={handleAddToCart}
+									onChange={(e) => {}}
 								>
 									Add To Cart
 								</button>
-
+								{/* </Link> */}
 								<button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
 									<svg
 										fill="currentColor"
