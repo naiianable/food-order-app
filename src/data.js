@@ -5,12 +5,14 @@ const data = {
 			item: "Hamburger",
 			price: 10,
 			image: "https://www.spendwithpennies.com/wp-content/uploads/2019/05/Classic-Burger-SpendWithPennies_-2.jpg",
+			modifiers: [],
 		},
 		{
 			id: "cheeseburger",
 			item: "Cheeseburger",
 			price: 12,
 			image: "https://www.spendwithpennies.com/wp-content/uploads/2020/10/Air-Fryer-Hamburgers-SpendWithPennies-6.jpg",
+			modifiers: "",
 		},
 	],
 	modifiers: [

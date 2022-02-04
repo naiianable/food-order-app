@@ -42,24 +42,53 @@ export default function Hamburger() {
 		return total;
 	};
 
+	const getMod = () => {
+		let modName;
+		_.forEach(addOns, (mod) => {
+			if (mod.checked) modName = mod.item;
+		});
+		return modName;
+	};
+
+	//updating hamburgerData state price when addOns state is changed
 	useEffect(() => {
-		setHamburgerData({ ...hamburgerData, price: getTotalPrice() });
+		// _.map(addOns, (modifier) => {
+		// 	//reading as checked.  figure out how to push mods into an array in hamData object
+		// 	if (modifier.checked) {
+		// 		setHamburgerData({
+		// 			...hamburgerData,
+		// 			modifiers: modifier.item,
+		// 		});
+		// 		//hamburgerData.modifiers = modifier.item;
+		// 	}
+		// });
+		setHamburgerData({
+			...hamburgerData,
+			price: getTotalPrice(),
+			// return {
+			// 	modifiers: {
+			// 		...prevState,
+			// 		getMod() {},
+			// 	},
+			// };
+		});
 	}, [addOns]);
-	//console.log("THIS IS USE EFFECT", hamburgerData);
+	console.log("THIS IS USE EFFECT", hamburgerData);
 
 	function handleAddToCart() {
 		//add hamburger hamburgerPrice to data cart array
 		setCart([...cart, hamburgerData]);
 	}
 	//console.log("THIS IS THE BURGER", hamburgerData);
-	console.log("THIS IS THE CART", cart);
+	//console.log("THIS IS THE CART", cart);
+	//console.log("THIS IS ADD ONS", addOns);
 
 	useEffect(() => {
 		localStorage.setItem("userCart", JSON.stringify(cart));
 	}, [cart]);
 
 	return (
-		<Layout cart={cart}>
+		<Layout>
 			<section className="text-gray-600 body-font overflow-hidden">
 				<div className="container px-5 py-24 mx-auto">
 					<div className="lg:w-4/5 mx-auto flex flex-wrap">

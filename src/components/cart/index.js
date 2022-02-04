@@ -1,6 +1,8 @@
-import _, { add } from "lodash";
-import Image from "next/image";
 import { useState } from "react";
+import _, { add } from "lodash";
+
+import Image from "next/image";
+import Link from "next/link";
 
 export default function UserCart() {
 	// componentDidMount() {
@@ -9,6 +11,9 @@ export default function UserCart() {
 	// 	);
 
 	// }
+
+	//setting localstorage data to state
+	//had to do conditional or else it wouldnt recognize localstorage
 	const [cartFromLocalStorage, setCartFromLocalStorage] = useState(() => {
 		if (typeof window !== "undefined") {
 			//setCartFromLocalStorage(JSON.parse(localStorage.getItem("userCart")));
@@ -17,8 +22,7 @@ export default function UserCart() {
 		}
 	});
 
-	// console.log("THIS IS LOCAL STORAGE", cartFromLocalStorage);
-	// console.log(_.isArray(cartFromLocalStorage));
+	console.log("THIS IS LOCAL STORAGE", cartFromLocalStorage);
 
 	// _.forOwn(cartFromLocalStorage, (item) => {
 	// 	console.log(item);
@@ -38,7 +42,9 @@ export default function UserCart() {
 							<h1 className="font-semibold text-2xl">
 								Shopping Cart
 							</h1>
-							<h2 className="font-semibold text-2xl">3 Items</h2>
+							<h2 className="font-semibold text-2xl">
+								{cartFromLocalStorage.length} Items
+							</h2>
 						</div>
 						<div className="flex mt-10 mb-5">
 							<h3 className="font-semibold text-gray-600 text-xs uppercase w-3/5">
@@ -104,7 +110,7 @@ export default function UserCart() {
 										</svg>
 									</div>
 									<span className="text-center w-1/5 font-semibold text-sm">
-										$400.00
+										${item.price.toFixed(2)}
 									</span>
 									{/* <span className="text-center w-1/5 font-semibold text-sm">
 										$400.00
@@ -112,18 +118,20 @@ export default function UserCart() {
 								</div>
 							);
 						})}
-						<a
-							href="#"
-							className="flex font-semibold text-indigo-600 text-sm mt-10"
-						>
-							<svg
-								className="fill-current mr-2 text-indigo-600 w-4"
-								viewBox="0 0 448 512"
+						<Link href="/">
+							<a
+								href="#"
+								className="inline-flex font-semibold text-indigo-600 text-sm mt-10"
 							>
-								<path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" />
-							</svg>
-							Continue Shopping
-						</a>
+								<svg
+									className="fill-current mr-2 text-indigo-600 w-4"
+									viewBox="0 0 448 512"
+								>
+									<path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" />
+								</svg>
+								Continue Shopping
+							</a>
+						</Link>
 					</div>
 
 					<div id="summary" className="w-1/4 px-8 py-10">
