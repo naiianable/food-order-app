@@ -19,16 +19,19 @@ const data = {
 		{
 			id: "bacon",
 			item: "Bacon",
+			detail: "Add Bacon",
 			price: 2,
 		},
 		{
 			id: "tomato",
 			item: "Tomato",
+			detail: "Extra Tomato",
 			price: 1,
 		},
 		{
 			id: "sauce",
 			item: "Sauce",
+			detail: "Extra Sauce",
 			price: 1,
 		},
 	],
