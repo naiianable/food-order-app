@@ -78,12 +78,25 @@ export default function Hamburger() {
 	//console.log("THIS IS USE EFFECT", hamburgerData);
 
 	function handleAddToCart() {
+		//loop through addon object, check to see if checked is true, add to hamburger data
+		// _.forOwn(addOns, (mod) => {
+		// 	if (mod.checked) {
+		// 		setHamburgerData((prevState) => {
+		// 			return {
+		// 				...prevState,
+		// 				modifiers: mod.details,
+		// 			};
+		// 		});
+		// 	}
+		// { ...hamburgerData, modifiers: mod.detail }
+		// 	console.log(mod);
+		// });
 		//add hamburger hamburgerPrice to data cart array
 		setCart([...cart, hamburgerData]);
 	}
 	//console.log("THIS IS THE BURGER", hamburgerData);
 	//console.log("THIS IS THE CART", cart);
-	//console.log("THIS IS ADD ONS", addOns);
+	console.log("THIS IS ADD ONS", addOns);
 
 	useEffect(() => {
 		//so localstorage persists on hamburger page refresh
