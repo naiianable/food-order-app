@@ -49,7 +49,6 @@ export default function Hamburger() {
 
 	function handleAddToCart() {
 		//add hamburger hamburgerPrice to data cart array
-		//spread in rest of hamburger object
 		setCart([...cart, hamburgerData]);
 	}
 	//console.log("THIS IS THE BURGER", hamburgerData);
