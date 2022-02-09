@@ -12,7 +12,7 @@ const data = {
 			item: "Cheeseburger",
 			price: 12,
 			image: "https://www.spendwithpennies.com/wp-content/uploads/2020/10/Air-Fryer-Hamburgers-SpendWithPennies-6.jpg",
-			modifiers: "",
+			modifiers: [],
 		},
 	],
 	modifiers: [

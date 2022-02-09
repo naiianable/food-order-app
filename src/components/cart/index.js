@@ -15,7 +15,11 @@ export default function UserCart() {
 		}
 	});
 
-	console.log(cartFromLocalStorage);
+	// cartFromLocalStorage.forEach((item) => {
+	// 	console.log(item.modifiers);
+	// });
+
+	//console.log("THIS IS CART", cartFromLocalStorage);
 
 	return (
 		<div className="bg-gray-100">
@@ -47,6 +51,7 @@ export default function UserCart() {
 						</div>
 
 						{_.map(cartFromLocalStorage, (item) => {
+							console.log(item.modifiers);
 							return (
 								<div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
 									<div className="flex w-3/5">
@@ -60,11 +65,23 @@ export default function UserCart() {
 											/>
 										</div>
 										<div className="flex flex-col justify-between ml-4 flex-grow">
-											<span className="font-bold text-sm">
+											<span
+												className="font-bold text-sm"
+												key="item"
+											>
 												{item.item}
 											</span>
+											{_.map(item.modifiers, (mod) => {
+												return (
+													<span
+														className="text-red-500 text-xs"
+														key="mods"
+													>
+														{mod}
+													</span>
+												);
+											})}
 
-											<span className="text-red-500 text-xs"></span>
 											<a
 												href="#"
 												className="font-semibold hover:text-red-500 text-gray-500 text-xs"
@@ -85,6 +102,7 @@ export default function UserCart() {
 											className="mx-2 border text-center w-8"
 											type="text"
 											value="1"
+											onChange={() => {}}
 										/>
 
 										<svg

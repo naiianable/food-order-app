@@ -12,6 +12,7 @@ export default function Hamburger() {
 	const [cart, setCart] = useState([]);
 	const [hamburgerData, setHamburgerData] = useState(data.burgers[0]);
 	const [hamburgerPrice, setHamburgerPrice] = useState(10);
+	const [currentOrder, setCurrentOrder] = useState(data.burgers[0]);
 
 	let modifiers = _.keyBy(data.modifiers, "id");
 	_.map(modifiers, (mod) => {
@@ -44,67 +45,47 @@ export default function Hamburger() {
 		return total;
 	};
 
-	// const getMod = () => {
-	// 	let modName;
-	// 	_.forEach(addOns, (mod) => {
-	// 		if (mod.checked) modName = mod.item;
-	// 	});
-	// 	return modName;
-	// };
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			let userCart = localStorage.getItem("userCart");
+			if (userCart) {
+				setCart(JSON.parse(userCart));
+			}
+		}
+	}, []);
 
 	//updating hamburgerData state price when addOns state is changed
 	useEffect(() => {
-		// _.map(addOns, (modifier) => {
-		// 	//reading as checked.  figure out how to push mods into an array in hamData object
-		// 	if (modifier.checked) {
-		// 		setHamburgerData({
-		// 			...hamburgerData,
-		// 			modifiers: modifier.item,
-		// 		});
-		// 		//hamburgerData.modifiers = modifier.item;
-		// 	}
-		// });
-		setHamburgerData({
-			...hamburgerData,
+		setCurrentOrder({
+			...currentOrder,
 			price: getTotalPrice(),
-			// return {
-			// 	modifiers: {
-			// 		...prevState,
-			// 		getMod() {},
-			// 	},
-			// };
 		});
 	}, [addOns]);
 	//console.log("THIS IS USE EFFECT", hamburgerData);
 
 	function handleAddToCart() {
 		//loop through addon object, check to see if checked is true, add to hamburger data
-		// _.forOwn(addOns, (mod) => {
-		// 	if (mod.checked) {
-		// 		setHamburgerData((prevState) => {
-		// 			return {
-		// 				...prevState,
-		// 				modifiers: mod.details,
-		// 			};
-		// 		});
-		// 	}
-		// { ...hamburgerData, modifiers: mod.detail }
-		// 	console.log(mod);
-		// });
+		currentOrder.modifiers = [];
+		_.forEach(addOns, (mod) => {
+			if (mod.checked) {
+				//pushing the the checked mods to the currentOrder state on add to cart click
+				// let updatedMods = _.sortedUniq(currentOrder.modifiers);
+				currentOrder.modifiers.push(mod.detail);
+				console.log("THESE ARE THE MODS", mod);
+			}
+		});
+
+		console.log("THIS IS THE ORDER", currentOrder);
 		//add hamburger hamburgerPrice to data cart array
-		setCart([...cart, hamburgerData]);
+		setCart([...cart, currentOrder]);
 	}
 	//console.log("THIS IS THE BURGER", hamburgerData);
 	//console.log("THIS IS THE CART", cart);
-	console.log("THIS IS ADD ONS", addOns);
+	//console.log("THIS IS ADD ONS", addOns);
 
 	useEffect(() => {
 		//so localstorage persists on hamburger page refresh
-		if (cart.length !== 0) {
-			localStorage.setItem("userCart", JSON.stringify(cart));
-		} else {
-			return;
-		}
+		localStorage.setItem("userCart", JSON.stringify(cart));
 	}, [cart]);
 
 	return (
@@ -192,15 +173,15 @@ export default function Hamburger() {
 									{/* ${getTotalPrice()} */}
 								</span>
 
-								{/* <Link href="/cart" passHref> */}
-								<button
-									className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-									onClick={handleAddToCart}
-									onChange={(e) => {}}
-								>
-									Add To Cart
-								</button>
-								{/* </Link> */}
+								<Link href="/cart" passHref>
+									<button
+										className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+										onClick={handleAddToCart}
+										onChange={(e) => {}}
+									>
+										Add To Cart
+									</button>
+								</Link>
 								<button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
 									<svg
 										fill="currentColor"
