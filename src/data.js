@@ -15,7 +15,23 @@ const data = {
 			modifiers: [],
 		},
 	],
-	modifiers: [
+	sides: [
+		{
+			id: "fries",
+			item: "Fries",
+			price: 4,
+			image: "https://www.spendwithpennies.com/wp-content/uploads/2013/10/Crispy-Oven-Fries-SpendWithPennies-27.jpg",
+			modifiers: [],
+		},
+		{
+			id: "chips",
+			item: "Chips",
+			price: 3,
+			image: "https://www.spendwithpennies.com/wp-content/uploads/2021/03/Air-Fryer-Potato-Chips-SpendWithPennies-12.jpg",
+			modifiers: [],
+		},
+	],
+	burgerMods: [
 		{
 			id: "bacon",
 			item: "Bacon",
@@ -32,6 +48,26 @@ const data = {
 			id: "sauce",
 			item: "Sauce",
 			detail: "Extra Sauce",
+			price: 1,
+		},
+	],
+	sideMods: [
+		{
+			id: "cheese",
+			item: "Cheese",
+			detail: "Add Cheese",
+			price: 1,
+		},
+		{
+			id: "chili",
+			item: "Chili",
+			detail: "Add Chili",
+			price: 2,
+		},
+		{
+			id: "onion",
+			item: "Onion",
+			detail: "Add Onion",
 			price: 1,
 		},
 	],

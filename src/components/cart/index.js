@@ -3,6 +3,7 @@ import _, { add } from "lodash";
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react/cjs/react.development";
 
 export default function UserCart() {
 	//setting localstorage data to state
@@ -15,11 +16,22 @@ export default function UserCart() {
 		}
 	});
 
-	// cartFromLocalStorage.forEach((item) => {
-	// 	console.log(item.modifiers);
-	// });
+	//HOW TO UPDATE LOCAL STORAGE ONCLICK OF REMOVING ITEM
+	function handleRemoveItem(id) {
+		cartFromLocalStorage.map((item, index) => {
+			if (item.id === id) {
+				cartFromLocalStorage.splice(index, 1);
+				//console.log("THIS IS THE ITEM", index);
+			}
+			console.log(cartFromLocalStorage);
+		});
+		// _.map(cartFromLocalStorage, (item) => {});
+	}
 
-	//console.log("THIS IS CART", cartFromLocalStorage);
+	useEffect(() => {
+		setCartFromLocalStorage(cartFromLocalStorage);
+		localStorage.setItem("userCart", JSON.stringify(cartFromLocalStorage));
+	}, [cartFromLocalStorage]);
 
 	return (
 		<div className="bg-gray-100">
@@ -51,7 +63,7 @@ export default function UserCart() {
 						</div>
 
 						{_.map(cartFromLocalStorage, (item) => {
-							console.log(item.modifiers);
+							// console.log(item.modifiers);
 							return (
 								<div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
 									<div className="flex w-3/5">
@@ -85,6 +97,10 @@ export default function UserCart() {
 											<a
 												href="#"
 												className="font-semibold hover:text-red-500 text-gray-500 text-xs"
+												id={item.id}
+												onClick={() =>
+													handleRemoveItem(item.id)
+												}
 											>
 												Remove
 											</a>

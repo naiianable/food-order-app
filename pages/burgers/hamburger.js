@@ -4,22 +4,25 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Layout from "../../src/components/layout";
+import GoBack from "../../src/components/goBack";
 import data from "../../src/data";
 
 //const userCart = JSON.parse(localStorage.getItem("userCart"));
 
 export default function Hamburger() {
 	const [cart, setCart] = useState([]);
+	const [addToCart, setAddToCart] = useState(false);
 	const [hamburgerData, setHamburgerData] = useState(data.burgers[0]);
 	const [hamburgerPrice, setHamburgerPrice] = useState(10);
 	const [currentOrder, setCurrentOrder] = useState(data.burgers[0]);
 
-	let modifiers = _.keyBy(data.modifiers, "id");
-	_.map(modifiers, (mod) => {
+	let burgerMods = _.keyBy(data.burgerMods, "id");
+	_.map(burgerMods, (mod) => {
 		mod.checked = false;
 	});
 
-	const [addOns, setAddOns] = useState(modifiers);
+	const [addOns, setAddOns] = useState(burgerMods);
+	//console.log(addOns);
 
 	function updateAddOns(id) {
 		setAddOns((prevState) => {
@@ -66,22 +69,24 @@ export default function Hamburger() {
 	function handleAddToCart() {
 		//loop through addon object, check to see if checked is true, add to hamburger data
 		currentOrder.modifiers = [];
+		currentOrder.id = Math.floor(Math.random() * 100);
 		_.forEach(addOns, (mod) => {
 			if (mod.checked) {
 				//pushing the the checked mods to the currentOrder state on add to cart click
-				// let updatedMods = _.sortedUniq(currentOrder.modifiers);
 				currentOrder.modifiers.push(mod.detail);
-				console.log("THESE ARE THE MODS", mod);
+				//console.log("THESE ARE THE MODS", mod);
 			}
 		});
 
 		console.log("THIS IS THE ORDER", currentOrder);
 		//add hamburger hamburgerPrice to data cart array
 		setCart([...cart, currentOrder]);
+		setAddToCart(true);
+
+		setTimeout(() => {
+			setAddToCart(false);
+		}, 3000);
 	}
-	//console.log("THIS IS THE BURGER", hamburgerData);
-	//console.log("THIS IS THE CART", cart);
-	//console.log("THIS IS ADD ONS", addOns);
 
 	useEffect(() => {
 		//so localstorage persists on hamburger page refresh
@@ -89,7 +94,27 @@ export default function Hamburger() {
 	}, [cart]);
 
 	return (
-		<Layout>
+		<Layout cart={cart}>
+			{addToCart && (
+				<div
+					className="bg-green-100 fixed top-8 right-0 w-1/6 m-8 text-green-700 px-4 py-3 text-center rounded animate-fade"
+					role="alert"
+				>
+					<strong className="font-bold ">Added To Cart!</strong>
+
+					{/* <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
+						<svg
+							className="fill-current h-6 w-6 text-red-500"
+							role="button"
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 20 20"
+						>
+							<title>Close</title>
+							<path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+						</svg>
+					</span> */}
+				</div>
+			)}
 			<section className="text-gray-600 body-font overflow-hidden">
 				<div className="container px-5 py-24 mx-auto">
 					<div className="lg:w-4/5 mx-auto flex flex-wrap">
@@ -138,40 +163,9 @@ export default function Hamburger() {
 										</div>
 									);
 								})}
-								{/* <div className="flex">
-								<span className="mr-3">
-								Extra Tomato $1.00
-								</span>
-								<input
-								className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
-								type="radio"
-								checked={addOns.tomato.checked}
-								value="1"
-								onClick={() => updateAddOns("tomato")}
-								onChange={(e) => {}}
-								/>
-								</div>
-								<div className="flex">
-								<span className="mr-3">
-								Extra Sauce $1.00
-								</span>
-								<input
-								className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"
-								type="radio"
-								checked={addOns.sauce.checked}
-								value="1"
-								onClick={() => updateAddOns("sauce")}
-								onChange={(e) => {}}
-								/>
-							</div> */}
 							</div>
 							<div className="flex">
-								<span
-									className="title-font font-medium text-2xl text-gray-900"
-									// value={hamburgerPrice}
-								>
-									{/* ${getTotalPrice()} */}
-								</span>
+								<GoBack />
 
 								<Link href="/cart" passHref>
 									<button
