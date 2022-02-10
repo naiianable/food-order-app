@@ -3,9 +3,7 @@ import { useState } from "react";
 import "../styles/style.scss";
 
 function MyApp({ Component, pageProps }) {
-	const [cart, setCart] = useState([]);
-
-	return <Component {...pageProps} cart={cart} />;
+	return <Component {...pageProps} />;
 }
 
 export default MyApp;

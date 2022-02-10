@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,10 +8,7 @@ const cheeseburgerMenuPic =
 const sidesMenuPic =
 	"https://www.spendwithpennies.com/wp-content/uploads/2013/10/Crispy-Oven-Fries-SpendWithPennies-27.jpg";
 
-export default function Home({ cart }) {
-	// const [cart, setCart] = useState([]);
-	console.log(cart);
-
+export default function Home() {
 	return (
 		<div>
 			<Layout>
