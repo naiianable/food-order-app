@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import _, { add } from "lodash";
 import Image from "next/image";
-import Link from "next/link";
 
 import Layout from "../../src/components/layout";
 import GoBack from "../../src/components/goBack";
@@ -155,15 +154,13 @@ export default function Hamburger() {
 							<div className="flex">
 								<GoBack />
 
-								<Link href="#" passHref>
-									<button
-										className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-										onClick={handleAddToCart}
-										onChange={(e) => {}}
-									>
-										Add To Cart
-									</button>
-								</Link>
+								<button
+									className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+									onClick={handleAddToCart}
+									onChange={(e) => {}}
+								>
+									Add To Cart
+								</button>
 							</div>
 						</div>
 					</div>
