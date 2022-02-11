@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import _, { add } from "lodash";
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
 
 import Layout from "../../src/components/layout";
-import data from "../../src/data";
 import GoBack from "../../src/components/goBack";
+import data from "../../src/data";
 //import { Router } from "react-router-dom";
 
 export default function Hamburger() {
@@ -15,8 +13,6 @@ export default function Hamburger() {
 	const [chipsData, setChipsData] = useState(data.sides[1]);
 	const [chipsPrice, setChipsPrice] = useState(3);
 	const [currentOrder, setCurrentOrder] = useState(data.sides[1]);
-
-	const router = useRouter();
 
 	let sideMods = _.keyBy(data.sideMods, "id");
 	_.map(sideMods, (mod) => {
@@ -158,15 +154,13 @@ export default function Hamburger() {
 							<div className="flex">
 								<GoBack />
 
-								<Link href="#" passHref>
-									<button
-										className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-										onClick={handleAddToCart}
-										onChange={(e) => {}}
-									>
-										Add To Cart
-									</button>
-								</Link>
+								<button
+									className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+									onClick={handleAddToCart}
+									onChange={(e) => {}}
+								>
+									Add To Cart
+								</button>
 							</div>
 						</div>
 					</div>
