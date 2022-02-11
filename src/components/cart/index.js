@@ -15,6 +15,10 @@ export default function UserCart() {
 			return cart;
 		}
 	});
+	useEffect(() => {
+		setCartFromLocalStorage(cartFromLocalStorage);
+		localStorage.setItem("userCart", JSON.stringify(cartFromLocalStorage));
+	}, [cartFromLocalStorage]);
 
 	//HOW TO UPDATE LOCAL STORAGE ONCLICK OF REMOVING ITEM
 	function handleRemoveItem(id) {
@@ -27,11 +31,6 @@ export default function UserCart() {
 		});
 		// _.map(cartFromLocalStorage, (item) => {});
 	}
-
-	useEffect(() => {
-		setCartFromLocalStorage(cartFromLocalStorage);
-		localStorage.setItem("userCart", JSON.stringify(cartFromLocalStorage));
-	}, [cartFromLocalStorage]);
 
 	return (
 		<div className="bg-gray-100">
@@ -48,13 +47,13 @@ export default function UserCart() {
 							</h2>
 						</div>
 						<div className="flex mt-10 mb-5">
-							<h3 className="font-semibold text-gray-600 text-xs uppercase w-3/5">
+							<h3 className="font-semibold text-gray-600 text-lg uppercase w-3/5">
 								Product Details
 							</h3>
-							<h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-2/5 text-center">
+							{/* <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-2/5 text-center">
 								Quantity
-							</h3>
-							<h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
+							</h3> */}
+							<h3 className="font-semibold text-center text-gray-600 text-lg uppercase w-2/5 text-center">
 								Price
 							</h3>
 							{/* <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
@@ -67,7 +66,7 @@ export default function UserCart() {
 							return (
 								<div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
 									<div className="flex w-3/5">
-										<div className="w-20">
+										<div className="w-20 ">
 											<Image
 												className="h-24"
 												src={item.image}
@@ -106,34 +105,10 @@ export default function UserCart() {
 											</a>
 										</div>
 									</div>
-									<div className="flex justify-center w-2/5">
-										<svg
-											className="fill-current text-gray-600 w-3"
-											viewBox="0 0 448 512"
-										>
-											<path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-										</svg>
 
-										<input
-											className="mx-2 border text-center w-8"
-											type="text"
-											value="1"
-											onChange={() => {}}
-										/>
-
-										<svg
-											className="fill-current text-gray-600 w-3"
-											viewBox="0 0 448 512"
-										>
-											<path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-										</svg>
-									</div>
-									<span className="text-center w-1/5 font-semibold text-sm">
+									<span className="text-center w-2/5 font-semibold text-sm">
 										${item.price.toFixed(2)}
 									</span>
-									{/* <span className="text-center w-1/5 font-semibold text-sm">
-										$400.00
-									</span> */}
 								</div>
 							);
 						})}
@@ -159,7 +134,7 @@ export default function UserCart() {
 						</h1>
 						<div className="flex justify-between mt-10 mb-5">
 							<span className="font-semibold text-sm uppercase">
-								Items {_.size(cartFromLocalStorage)}
+								Items ({_.size(cartFromLocalStorage)})
 							</span>
 							<span className="font-semibold text-sm">
 								$
@@ -170,29 +145,26 @@ export default function UserCart() {
 							</span>
 						</div>
 
-						<div className="py-10">
-							<label
-								htmlFor="promo"
-								className="font-semibold inline-block mb-3 text-sm uppercase"
-							>
-								Promo Code
-							</label>
-							<input
-								type="text"
-								id="promo"
-								placeholder="Enter your code"
-								className="p-2 text-sm w-full"
-							/>
-						</div>
-						<button className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">
-							Apply
-						</button>
+						{/* <div className="flex justify-between mt-10 mb-5">
+							<span className="font-semibold text-sm uppercase">
+								Tax
+							</span>
+							<span className="font-semibold text-sm">
+								$
+								{_.sumBy(cartFromLocalStorage, (o) => {
+									let tax = o.price * 0.04712;
+									return +tax.toFixed(2);
+								})}
+							</span>
+						</div> */}
+
 						<div className="border-t mt-8">
 							<div className="flex font-semibold justify-between py-6 text-sm uppercase">
 								<span>Total cost</span>
 								<span>
 									$
 									{_.sumBy(cartFromLocalStorage, (o) => {
+										let total = o.price * 1.04712;
 										return o.price;
 									})}
 									.00
