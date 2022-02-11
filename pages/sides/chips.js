@@ -104,18 +104,6 @@ export default function Hamburger() {
 					role="alert"
 				>
 					<strong className="font-bold ">Added To Cart!</strong>
-
-					{/* <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
-						<svg
-							className="fill-current h-6 w-6 text-red-500"
-							role="button"
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 20 20"
-						>
-							<title>Close</title>
-							<path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-						</svg>
-					</span> */}
 				</div>
 			)}
 			<section className="text-gray-600 body-font overflow-hidden">
@@ -169,16 +157,8 @@ export default function Hamburger() {
 							</div>
 							<div className="flex">
 								<GoBack />
-								{/* <button
-									className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
-									onClick={() => {
-										router.back();
-									}}
-								>
-									Go Back
-								</button> */}
 
-								<Link href="/cart" passHref>
+								<Link href="#" passHref>
 									<button
 										className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
 										onClick={handleAddToCart}
@@ -187,18 +167,6 @@ export default function Hamburger() {
 										Add To Cart
 									</button>
 								</Link>
-								<button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
-									<svg
-										fill="currentColor"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-										className="w-5 h-5"
-										viewBox="0 0 24 24"
-									>
-										<path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-									</svg>
-								</button>
 							</div>
 						</div>
 					</div>

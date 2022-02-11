@@ -15,10 +15,6 @@ export default function UserCart() {
 			return cart;
 		}
 	});
-	useEffect(() => {
-		setCartFromLocalStorage(cartFromLocalStorage);
-		localStorage.setItem("userCart", JSON.stringify(cartFromLocalStorage));
-	}, [cartFromLocalStorage]);
 
 	//HOW TO UPDATE LOCAL STORAGE ONCLICK OF REMOVING ITEM
 	function handleRemoveItem(id) {
@@ -27,9 +23,10 @@ export default function UserCart() {
 				cartFromLocalStorage.splice(index, 1);
 				//console.log("THIS IS THE ITEM", index);
 			}
-			console.log(cartFromLocalStorage);
 		});
-		// _.map(cartFromLocalStorage, (item) => {});
+		localStorage.setItem("userCart", JSON.stringify(cartFromLocalStorage));
+		window.location.reload();
+		//console.log(cartFromLocalStorage);
 	}
 
 	return (
